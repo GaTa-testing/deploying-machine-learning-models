@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  test_regession_model:
+    working_directory: ~/project
+    docker:
+      - image: circleci/python:3.7.2
+    steps:
+      - checkout
+      - run:
+          name: Running tests
+          command: |
+            virtualenv testing_env
+            . testing_env/bin/activate
+            pip install --upgrade pip
+            pip install -r packages/regression_model/requirements.txt
+            chmod +x ./scripts/fetch_kaggle_dataset.sh
+            ./scripts/fetch_kaggle_dataset.sh
+            py.test -vv packages/regression_model_/tests
+
+workflows:
+  version: 2
+  test-all:
+    jobs:
+      - test_regession_model

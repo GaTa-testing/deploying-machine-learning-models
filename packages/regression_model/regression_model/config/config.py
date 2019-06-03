@@ -17,12 +17,15 @@ TRAINING_DATA_FILE = 'train.csv'
 TARGET = 'SalePrice'
 
 # variables
-FEATURES = ['MSSubClass', 'MSZoning', 'Neighborhood', 'OverallQual',
-			'OverallCond', 'YearRemodAdd', 'RoofStyle', 'MasVnrType',
-			'BsmtQual', 'BsmtExposure', 'HeatingQC', 'CentralAir',
-			'1stFlrSF', 'GrLivArea', 'BsmtFullBath', 'KitchenQual',
-			'Fireplaces', 'FireplaceQu', 'GarageType', 'GarageFinish',
-			'GarageCars', 'PavedDrive', 'LotFrontage', 'YrSold']
+FEATURES = ['MSSubClass', 'MSZoning', 'Neighborhood',
+            'OverallQual', 'OverallCond', 'YearRemodAdd',
+            'RoofStyle', 'MasVnrType', 'BsmtQual', 'BsmtExposure',
+            'HeatingQC', 'CentralAir', '1stFlrSF', 'GrLivArea',
+            'BsmtFullBath', 'KitchenQual', 'Fireplaces', 'FireplaceQu',
+            'GarageType', 'GarageFinish', 'GarageCars', 'PavedDrive',
+            'LotFrontage',
+            # this one is only to calculate temporal variable:
+            'YrSold']
 
 # This variable is to calculate the temporal variable,
 # can be dropped afterwards
