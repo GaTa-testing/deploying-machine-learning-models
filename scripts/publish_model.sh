@@ -20,10 +20,10 @@ die() {
 }
 
 build() {
-    DIR="${1/&\//}"
+    DIR="${1/%\//}"
     echo "Checking directory $DIR"
     cd "$BASE_DIR/$DIR"
-    [ ! -e $SETUP] && warn "No $SETUP file, skipping" && return
+    [ ! -e $SETUP ] && warn "No $SETUP file, skipping" && return
     PACKAGE_NAME=$(python $SETUP --fullname)
     echo "Package $PACKAGE_NAME"
     python "$SETUP" sdist bdist_wheel || die "Building package $PACKAGE_NAME failed"

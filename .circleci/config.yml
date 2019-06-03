@@ -16,7 +16,6 @@ jobs:
             chmod +x ./scripts/fetch_kaggle_dataset.sh
             ./scripts/fetch_kaggle_dataset.sh
             py.test -vv packages/regression_model/tests
-
   test_ml_api:
     working_directory: ~/project
     docker:
@@ -24,14 +23,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Running tests
+          name: Runnning tests
           command: |
             virtualenv venv
             . venv/bin/activate
             pip install --upgrade pip
             pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests
-
   train_and_upload_regression_model:
     working_directory: ~/project
     docker:
@@ -48,11 +46,10 @@ jobs:
           name: Publish model
           command: |
             . venv/bin/activate
-            chmod +X ./scripts/fetch_kaggle_dataset.sh ./scripts/publish_model.sh
+            chmod +x ./scripts/fetch_kaggle_dataset.sh ./scripts/publish_model.sh
             ./scripts/fetch_kaggle_dataset.sh
             PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
-            ./scripts/publish_model.sh ./packages/regression_model
-
+            ./scripts/publish_model.sh ./packages/regression_model/
 workflows:
   version: 2
   test-all:

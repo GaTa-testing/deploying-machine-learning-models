@@ -8,4 +8,4 @@ marshmallow==2.17.0
 
 
 # install from gemfury
-regression_model==0.1.0
+regression-model==0.1.0
