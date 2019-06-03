@@ -4,6 +4,9 @@ jobs:
     working_directory: ~/project
     docker:
       - image: circleci/python:3.7.2
+    branches:
+      only:
+        - test-branch-2
     steps:
       - checkout
       - run:
@@ -15,7 +18,7 @@ jobs:
             pip install -r packages/regression_model/requirements.txt
             chmod +x ./scripts/fetch_kaggle_dataset.sh
             ./scripts/fetch_kaggle_dataset.sh
-            py.test -vv packages/regression_model_/tests
+            py.test -vv packages/regression_model/tests
 
 workflows:
   version: 2
