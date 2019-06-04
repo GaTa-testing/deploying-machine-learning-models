@@ -4,7 +4,7 @@ import pytest
 
 from regression_model.config import config
 from regression_model.predict import make_prediction
-from regression_model.processing.data_management import load dataset`
+from regression_model.processing.data_management import load_dataset
 
 
 @pytest.mark.differential
