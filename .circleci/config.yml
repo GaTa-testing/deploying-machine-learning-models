@@ -12,7 +12,6 @@ prepare_venv: &prepare_venv
       python3 -m venv venv
       source venv/bin/activate
       pip install --upgrade pip
-
 fetch_data: &fetch_data
   run:
     name: Set script permissions and fetch data
@@ -20,7 +19,6 @@ fetch_data: &fetch_data
       source venv/bin/activate
       chmod +x ./scripts/fetch_kaggle_dataset.sh
       ./scripts/fetch_kaggle_dataset.sh
-
 jobs:
   test_regression_model:
     <<: *defaults
@@ -43,7 +41,6 @@ jobs:
           command: |
             . venv/bin/activate
             py.test -vv packages/regression_model/tests
-
   test_ml_api:
     <<: *defaults
     steps:
@@ -52,7 +49,7 @@ jobs:
           keys:
             - py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
       - run:
-          name: Running tests
+          name: Runnning tests
           command: |
             python3 -m venv venv
             . venv/bin/activate
@@ -86,26 +83,24 @@ jobs:
             . venv/bin/activate
             chmod +x ./scripts/publish_model.sh
             ./scripts/publish_model.sh ./packages/regression_model/
-
   section_9_differential_tests:
     <<: *defaults
     steps:
       - checkout
       - *prepare_venv
       - run:
-          name: Capture previous model predictions
+          name: Capturing previous model predictions
           command: |
             . venv/bin/activate
             pip install -r packages/ml_api/diff_test_requirements.txt
             PYTHONPATH=./packages/ml_api python3 packages/ml_api/tests/capture_model_predictions.py
       - run:
-          name: Running differential tests
+          name: Runnning differential tests
           command: |
             . venv/bin/activate
             pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests -m differential
-
-  Section_10_deploy_to_heroku:
+  section_10_deploy_to_heroku:
     <<: *defaults
     steps:
       - checkout
@@ -114,7 +109,7 @@ jobs:
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
-  Section_11_build_and_push_to_heroku_docker:
+  section_11_build_and_push_to_heroku_docker:
     <<: *defaults
     steps:
       - checkout
@@ -133,7 +128,6 @@ jobs:
           name: Release to Heroku
           command: |
             heroku container:release web --app $HEROKU_APP_NAME
-
 workflows:
   version: 2
   test-all:
@@ -150,6 +144,7 @@ workflows:
             branches:
               only:
                 - master
+                - test-branch-2
       # - section_10_deploy_to_heroku:
       #     requires:
       #       - train_and_upload_regression_model
@@ -164,3 +159,4 @@ workflows:
             branches:
               only:
                 - master
+                - test-branch-2
