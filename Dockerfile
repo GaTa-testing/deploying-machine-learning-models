@@ -8,7 +8,7 @@ WORKDIR /opt/ml_api
 ARG PIP_EXTRA_INDEX_URL
 ENV FLASK_APP run.py
 
-# Install requirements, including from Gemfury.
+# Install requirements, including from Gemfury
 ADD ./packages/ml_api /opt/ml_api/
 RUN pip install --upgrade pip
 RUN pip install -r /opt/ml_api/requirements.txt
