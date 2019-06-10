@@ -119,7 +119,8 @@ jobs:
       - run:
           name: Setup Heroku CLI
           command: |
-            wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
+            chmod +x .circleci/setup-heroku.sh
+            .circleci/setup-heroku.sh
       - run:
           name: Build and Push Image
           command: |
