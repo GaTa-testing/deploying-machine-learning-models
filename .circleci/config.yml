@@ -127,7 +127,7 @@ jobs:
       - run:
           name: Release to Heroku
           command: |
-            docker run --rm -e HEROKU_API_KEY=$HEROKU_API_KEY wingrunr21/alpine-heroku-cli container:release web --app $HEROKU_APP_NAME
+            heroku container:release web --app $HEROKU_APP_NAME
 workflows:
   version: 2
   test-all:
