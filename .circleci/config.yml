@@ -124,10 +124,16 @@ jobs:
           name: Build and Push Image
           command: |
             make build-ml-api-heroku push-ml-api-heroku
+            docker inspect registry.heroku.com/$HEROKU_APP_NAME/web: --format={{.Id}} >> $WEB_DOCKER_IMAGE_ID
+            source $WEB_DOCKER_IMAGE_ID
       - run:
           name: Release to Heroku
           command: |
-            heroku container:release web --app $HEROKU_APP_NAME
+            export WEB_DOCKER_IMAGE_ID=$(cat WEB_DOCKER_IMAGE_ID)
+            chmod +x ./.circleci/deploy.sh
+            ./.circleci/deploy.sh
+            echo "Done..."
+            
 workflows:
   version: 2
   test-all:
